@@ -21,4 +21,17 @@ class Invitation extends Model
         'age_group'
     ];
 
+    protected $appends = [
+        'invitation_url'
+    ];
+
+    public function guests()
+    {
+        return $this->hasMany(Guest::class, 'invitation_id', 'id');
+    }
+
+    public function getInvitationUrlAttribute()
+    {
+        return url($this->id);
+    }
 }

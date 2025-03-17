@@ -2,25 +2,22 @@
 
 namespace App\Enums;
 
+use Filament\Support\Contracts\HasLabel;
+
 /**
  * @method static self child()
  * @method static self adult()
  */
-enum GuestAgeGroup
+enum GuestAgeGroup: string implements HasLabel
 {
-    protected static function values(): array
-    {
-        return [
-            'child' => 'child',
-            'adult' => 'adult',
-        ];
-    }
+    case child = 'child';
+    case adult = 'adult';
 
-    protected static function labels(): array
+    public function getLabel(): string
     {
-        return [
-            'child' => 'Niño',
-            'adult' => 'Adulto',
-        ];
+        return match ($this) {
+            self::child => __('Child'),
+            self::adult => __('Adult'),
+        };
     }
 }
